@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model SectionsProducts {
+  id        String     @unique @default(uuid())
+  title     String
+  products  Products[]
+  create_at DateTime   @default(now())
+}
+
+model Products {
+  id       String @unique @default(uuid())
+  name     String
+  imageUrl String
+  price    Int
+
+  SectionsProducts   SectionsProducts? @relation(fields: [sectionsProductsId], references: [id])
+  sectionsProductsId String?
+
+  sectionsTypesProducts SectionsTypesProduct[]
+
+  create_at DateTime @default(now())
+}
+
+model SectionsTypesProduct {
+  id              String    @unique @default(uuid())
+  title           String
+  maximumQuantity Int
+  types           Type[]
+  create_at       DateTime  @default(now())
+  Products        Products? @relation(fields: [productsId], references: [id])
+  productsId      String?
+}
+
+model Type {
+  id   String @unique @default(uuid())
+  name String
+
+  SectionsTypesProduct   SectionsTypesProduct? @relation(fields: [sectionsTypesProductId], references: [id])
+  sectionsTypesProductId String?
+
+  create_at DateTime @default(now())
+}
