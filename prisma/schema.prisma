@@ -47,3 +47,22 @@ model Type {
 
   create_at DateTime @default(now())
 }
+
+model ItemCart {
+  id             String   @unique @default(uuid())
+  name           String
+  price          Int
+  quant          Int
+  complementsAdd String
+  Cart           Cart?    @relation(fields: [cartId], references: [id])
+  cartId         String?
+  create_at      DateTime @default(now())
+}
+
+model Cart {
+  id            String     @unique @default(uuid())
+  items         ItemCart[]
+  total         Int
+  idUserBrowser String     @id @unique
+  create_at     DateTime   @default(now())
+}

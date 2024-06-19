@@ -9,6 +9,9 @@ import {
 } from '@remix-run/react'
 
 import stylesheet from '@/app/tailwind.css'
+import { QueryClientProvider } from 'react-query'
+import { queryClient } from '@/lib/querryClient'
+import { Toaster } from '@/components/ui/toaster'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -24,10 +27,14 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <QueryClientProvider client={queryClient}>
+          <Toaster />
+
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </QueryClientProvider>
       </body>
     </html>
   )

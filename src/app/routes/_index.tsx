@@ -1,46 +1,28 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import type { LinksFunction, MetaFunction } from '@remix-run/node'
-import stylesheet from '@/app/tailwind.css'
 import { Link, useLoaderData } from '@remix-run/react'
-import { Button } from '@/components/ui/button'
 import { prisma } from '@/services/prisma'
-import { convertePrice } from '@/utils/convertePrice'
+import { ShoppingCart } from '@phosphor-icons/react'
+import type { Product } from '@/types/ProductRequest'
+import stylesheet from '@/app/tailwind.css'
+import imageHero from '@/assets/hero-image.jpg'
+import { CardProduct } from '@/components/CardProduct'
+import { GroupProducts } from '@/components/GroupProducts'
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'New Remix App' },
-    { name: 'description', content: 'Welcome to Remix!' },
+    { title: 'Açaí do Brasil' },
+    {
+      name: 'Açaí do Brasil',
+      content:
+        '"Bem-vindo ao Açaí do Brasil, o seu destino online para o verdadeiro sabor da Amazônia! Oferecemos uma seleção premium de açaí 100% natural, diretamente das florestas tropicais para a sua mesa. Explore nossas deliciosas combinações de açaí com frutas frescas, granolas crocantes e outros ingredientes nutritivos que vão energizar o seu dia. Experimente a essência autêntica do Brasil e sinta o poder revitalizante do açaí em cada colherada. Faça seu pedido agora e descubra por que o nosso açaí é o favorito dos amantes de saúde e sabor!"',
+    },
   ]
 }
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ]
-
-export type Type = {
-  id: string
-  name: string
-  sectionsTypesProductId: string
-  create_at: Date
-}
-
-export type SectionsTypesProducts = {
-  id: string
-  title: string
-  maximumQuantity: number
-  create_at: Date
-  productsId: string
-  types: Type[]
-}
-
-export type Product = {
-  id: string
-  name: string
-  imageUrl: string
-  price: number
-  sectionsProductsId: string | null
-  create_at: Date
-  sectionsTypesProducts: SectionsTypesProducts[]
-}
 
 type SectionsProducts = {
   title: string
@@ -66,13 +48,16 @@ export default function Index() {
   const data = useLoaderData<SectionsProducts[]>()
 
   return (
-    <div className="w-full">
-      <div className="flex items-center flex-col justify-center w-full h-min py-16 fundo relative">
-        <div className="absolute inset-0 bg-zinc-900/50 z-[99]"></div>
+    <div className="w-full mb-20">
+      <div className="flex items-center flex-col justify-center w-full h-min py-16 fundo z-[-2] relative">
+        <div className="absolute inset-0 bg-zinc-900/50 z-[-1]"></div>
 
-        <div className="w-[200px] h-[200px] rounded bg-white z-[999]"></div>
-        <div className="w-full text-center space-y-2 mt-4 z-[999]">
-          <h1 className="text-white text-xl font-normal">Name restaurante</h1>
+        <div className="w-[200px] h-[200px] rounded-full overflow-hidden">
+          <img src={imageHero} alt="Açai image" className="w-full h-full" />
+        </div>
+
+        <div className="w-full text-center space-y-2 mt-4">
+          <h1 className="text-white text-xl font-normal"></h1>
           <div className="w-max text-white text-xl font-bold px-20 mx-auto py-1 rounded bg-green-500">
             Aberto agora
           </div>
@@ -91,45 +76,23 @@ export default function Index() {
         ))}
       </div>
 
-      {data.map((sectionProduct) => (
-        <section
-          key={sectionProduct.id}
-          id={sectionProduct.title}
-          className="w-full"
-        >
-          <div className="bg-primary w-full h-12 px-4 sticky top-[55px] flex items-center">
-            <h1 className="text-2xl text-secondary font-semibold">
-              {sectionProduct.title}
-            </h1>
-          </div>
+      <Link
+        to={`/cart`}
+        className="fixed bottom-0 px-5 flex items-center justify-center left-0 right-0 w-full border-t py-3"
+      >
+        <div className="w-full flex items-center justify-center gap-2 bg-primary text-secondary rounded-full py-2">
+          <ShoppingCart className="w-6 h-6 text-secondary" weight="fill" />
+          Ver carinho
+        </div>
+      </Link>
 
-          {sectionProduct.products.map((product) => (
-            <div
-              key={product.id}
-              className="grid grid-cols-1 gap-2 px-4 border-t border-b"
-            >
-              <div className="w-full py-5 flex items-center justify-between ">
-                <div className="flex items-center gap-3">
-                  <img
-                    className="w-24 h-24 rounded overflow-hidden object-cover"
-                    src={product.imageUrl}
-                    alt={product.name}
-                  />
-
-                  <div className="space-y-3">
-                    <p className="text-base font-normal">{product.name}</p>
-                    <span className="text-sm">
-                      {convertePrice(product.price)}
-                    </span>
-                  </div>
-                </div>
-                <Button asChild>
-                  <Link to={`/item/${product.id}`}>adicionar item</Link>
-                </Button>
-              </div>
-            </div>
-          ))}
-        </section>
+      {data.map((groupProduct) => (
+        <GroupProducts
+          key={groupProduct.id}
+          id={groupProduct.id}
+          title={groupProduct.title}
+          products={groupProduct.products}
+        />
       ))}
     </div>
   )
