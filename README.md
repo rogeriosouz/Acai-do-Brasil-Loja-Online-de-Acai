@@ -1,7 +1,10 @@
-![project5](https://github.com/rogeriosouz/Acai-do-Brasil-Loja-Online-de-Acai/assets/76504596/da41d29f-1279-4fb7-9e07-370696ab06f7)
-![project5-2](https://github.com/rogeriosouz/Acai-do-Brasil-Loja-Online-de-Acai/assets/76504596/6cffa24c-128c-4ad0-b254-3b158bf1e246)
-![project5-3](https://github.com/rogeriosouz/Acai-do-Brasil-Loja-Online-de-Acai/assets/76504596/93f99a40-db11-4367-84ff-35d0b4884a5c)
+<p align="center">
+ <img width="300"  height="600" src="https://github.com/rogeriosouz/Acai-do-Brasil-Loja-Online-de-Acai/assets/76504596/da41d29f-1279-4fb7-9e07-370696ab06f7"> 
 
+ <img width="300"  height="600" src="https://github.com/rogeriosouz/Acai-do-Brasil-Loja-Online-de-Acai/assets/76504596/6cffa24c-128c-4ad0-b254-3b158bf1e246"> 
+
+ <img width="300"  height="600" src="https://github.com/rogeriosouz/Acai-do-Brasil-Loja-Online-de-Acai/assets/76504596/93f99a40-db11-4367-84ff-35d0b4884a5c"> 
+</p>
 
 # Açaí do Brasil - Loja Online de Açaí
 
